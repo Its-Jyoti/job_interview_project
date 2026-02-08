@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-r$5$u52%f6fjjy%5+!8)y7u4xi=-t#(*vp&$id^hfya7154ho6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 from decouple import config
 
 # Add your OpenAI API Key in a .env file
