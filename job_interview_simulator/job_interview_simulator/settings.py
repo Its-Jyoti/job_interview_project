@@ -29,7 +29,7 @@ ALLOWED_HOSTS = []
 from decouple import config
 
 # Add your OpenAI API Key in a .env file
-OPENAI_API_KEY = config('OPENAI_API_KEY')
+OPENAI_API_KEY = config('OPENAI_API_KEY', default='')
 DEBUG = config('DEBUG', default=True, cast=bool)
 
 
