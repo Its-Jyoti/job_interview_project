@@ -20,7 +20,7 @@ const InterviewPage = () => {
             interview_type,
         };
 
-        fetch('http://localhost:8000/api/generate-questions/', {
+        fetch(`${import.meta.env.VITE_API_URL}/api/generate-questions/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
