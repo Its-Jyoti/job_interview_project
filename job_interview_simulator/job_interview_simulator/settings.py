@@ -23,7 +23,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-r$5$u52%f6fjjy%5+!8)y7u4xi=-t#(*vp&$id^hfya7154ho6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=True, cast=bool)
+
 
 ALLOWED_HOSTS = ["*"]
 from decouple import config
@@ -46,11 +47,9 @@ INSTALLED_APPS = [
     'api',  # Your API app
     'corsheaders',
 ]
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
-]
-
 CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -87,8 +86,8 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 # settings.py
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+//CELERY_BROKER_URL = 'redis://localhost:6379/0'
+//CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
@@ -121,7 +120,7 @@ AUTH_PASSWORD_VALIDATORS = [
 STATIC_URL = '/static/'
 
 # This line is optional, but it's good practice to define STATICFILES_DIRS
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATICFILES_DIRS = [BASE_DIR / "static"] if (BASE_DIR / "static").exists() else []
 # Add this to enable query logging (for development only)
 LOGGING = {
     'version': 1,
