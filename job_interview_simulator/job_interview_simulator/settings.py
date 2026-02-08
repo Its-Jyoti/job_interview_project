@@ -95,14 +95,11 @@ CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'job_db',        # Your MySQL database name
-        'USER': 'root',          # Your MySQL username
-        'PASSWORD': 'root@123',  # Your MySQL password
-        'HOST': 'localhost',     # Database host
-        'PORT': '3306',          # MySQL port
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
