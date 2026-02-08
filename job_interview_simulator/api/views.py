@@ -14,7 +14,7 @@ import re
 import random
 from django.contrib.auth.models import User
 
-genai.configure(api_key=config('API_KEY'))
+genai.configure(api_key=config(api_key=config('OPENAI_API_KEY', default=''))
 # Function to fetch AI-generated questions using Gemini API
 # Function to fetch AI-generated questions using Gemini API
 # Function to fetch AI-generated questions using Gemini API
