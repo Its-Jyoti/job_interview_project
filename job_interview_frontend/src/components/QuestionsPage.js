@@ -40,7 +40,7 @@ const QuestionsPage = () => {
         }
 
         try {
-            const response = await fetch('http://localhost:8000/api/feedback/', {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/feedback/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
