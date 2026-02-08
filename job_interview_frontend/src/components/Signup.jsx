@@ -25,53 +25,24 @@ const Signup = () => {
 
   return (
     <div className="signup-container">
-      <div className="signup-left">
-        <img
-          src="/images/background/12.jpg"
-          alt="background"
-          className="signup-image"
+      <h2>Create a Free Account</h2>
+      <form onSubmit={handleSubmit}>
+        <input
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Username"
+          required
         />
-      </div>
-
-      <div className="signup-right">
-        <div className="signup-form">
-          <h2>Create a Free Account</h2>
-
-          <form onSubmit={handleSubmit}>
-            <div className="input-group">
-              <label htmlFor="username">Username</label>
-              <input
-                type="text"
-                id="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-              />
-            </div>
-
-            <div className="input-group">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
-
-            <button type="submit" className="signup-button">
-              Register
-            </button>
-
-            {error && <p className="error-message">{error}</p>}
-
-            <div className="login-link">
-              Already have an account? <a href="/login">Login</a>
-            </div>
-          </form>
-        </div>
-      </div>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+          required
+        />
+        <button type="submit">Register</button>
+        {error && <p>{error}</p>}
+      </form>
     </div>
   );
 };
