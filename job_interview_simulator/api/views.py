@@ -228,7 +228,7 @@ class GetQuestionsView(APIView):
 
 class GetCorrectAnswerView(APIView):
     def post(self, request):
-        question_text = request.data.get('question')
+        question_text = request.data.get("question")
 
         if not question_text:
             return Response(
@@ -236,20 +236,18 @@ class GetCorrectAnswerView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        # AI-based correct answer (no DB dependency)
-        prompt = f"Provide a short and correct answer for this interview question: {question_text}"
-
         try:
-            import openai
-            client = openai.OpenAI(api_key=config("OPENAI_API_KEY"))
-
-            completion = client.chat.completions.create(
-                model="gpt-3.5-turbo",
-                messages=[{"role": "user", "content": prompt}],
+            response = client.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=[
+                    {"role": "system", "content": "You are an expert interviewer."},
+                    {"role": "user", "content": f"Provide a short correct answer for: {question_text}"}
+                ],
+                temperature=0.3
             )
 
-            answer = completion.choices[0].message.content
-            return Response({"correct_answer": answer})
+            answer = response.choices[0].message.content.strip()
+            return Response({"correct_answer": answer}, status=status.HTTP_200_OK)
 
         except Exception as e:
             return Response(
