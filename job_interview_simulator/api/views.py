@@ -210,3 +210,19 @@ class LoginView(APIView):
             return Response({"success": "Login successful"}, status=status.HTTP_200_OK)
 
         return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
+        
+class GetQuestionsView(APIView):
+    def post(self, request):
+        domain = request.data.get('domain')
+        difficulty = request.data.get('difficulty')
+        interview_type = request.data.get('interview_type')
+
+        if not domain or not difficulty or not interview_type:
+            return Response(
+                {"error": "domain, difficulty, and interview_type are required"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        questions = generate_ai_questions(domain, difficulty, interview_type)
+        return Response({"questions": questions}, status=status.HTTP_200_OK)
+
