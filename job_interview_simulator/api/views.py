@@ -226,3 +226,33 @@ class GetQuestionsView(APIView):
         questions = generate_ai_questions(domain, difficulty, interview_type)
         return Response({"questions": questions}, status=status.HTTP_200_OK)
 
+class GetCorrectAnswerView(APIView):
+    def post(self, request):
+        question_text = request.data.get('question')
+
+        if not question_text:
+            return Response(
+                {"error": "Question is required"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # AI-based correct answer (no DB dependency)
+        prompt = f"Provide a short and correct answer for this interview question: {question_text}"
+
+        try:
+            import openai
+            client = openai.OpenAI(api_key=config("OPENAI_API_KEY"))
+
+            completion = client.chat.completions.create(
+                model="gpt-3.5-turbo",
+                messages=[{"role": "user", "content": prompt}],
+            )
+
+            answer = completion.choices[0].message.content
+            return Response({"correct_answer": answer})
+
+        except Exception as e:
+            return Response(
+                {"error": str(e)},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
